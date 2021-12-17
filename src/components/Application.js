@@ -11,11 +11,14 @@ import axios from "axios";
 
 import {getAppointmentsForDay} from "helpers/selectors";
 
+import { getInterview } from "helpers/selectors";
+
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {}, 
+    interviewers: {}
   });
  
 
@@ -38,13 +41,15 @@ export default function Application(props) {
   }, [])
 
   const dailyAppointments = getAppointmentsForDay(state, state.day)
+
   const appointment = dailyAppointments.map(appt =>{
+    const interview = getInterview(state, appt.interview)
     return (
       <Appointment 
       key={appt.id}
       id={appt.id}
       time={appt.time}
-      interview={appt.interview}
+      interview={interview}
       /> 
     )
   })

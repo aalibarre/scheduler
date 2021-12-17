@@ -22,3 +22,15 @@ export function getAppointmentsForDay(state, day) {
 
     return match(state.appointments, newArray);
   }
+
+  export function getInterview(state, interview) {
+      if(!interview) {
+          return null;
+      }
+    const interviewInfo = state.interviewers[interview.interviewer]
+    const interviewObj = {
+        student: interview.student,
+        interviewer: interviewInfo, 
+    }
+    return interviewObj;
+  }
