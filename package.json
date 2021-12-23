@@ -8,6 +8,7 @@
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-hooks-testing-library": "^0.6.0",
     "react-scripts": "3.0.0"
   },
   "proxy": "http://localhost:8001",
@@ -40,7 +41,9 @@
     "@storybook/react": "^5.0.10",
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.7",
-    "node-sass": "^4.14.0"
+    "@testing-library/react-hooks": "^7.0.2",
+    "node-sass": "^4.14.0",
+    "react-test-renderer": "^16.9.0"
   },
   "jest": {
     "watchPathIgnorePatterns": [
