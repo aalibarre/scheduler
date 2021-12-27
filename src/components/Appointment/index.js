@@ -4,7 +4,7 @@ import Empty from "./Empty";
 import Header from "./Header";
 import Show from "./Show";
 import "./styles.scss";
-
+import {useVisualMode} from "hooks/useVisualMode"; 
 
 export default function Appointment(props) {
 
