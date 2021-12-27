@@ -33,3 +33,23 @@ export function getInterview(state, interview) {
   };
   return interviewObj;
 }
+
+export function getInterviewersForDay (state, day) {
+  const matchInterviewer = function (appointments, ids) {
+    let matchedAppts = ids.map((id) => appointments[id]);
+    return matchedAppts;
+  };
+
+  let interviewersArray = [];
+
+  state.days.map((dayObj) => {
+    console.log("dayObj", dayObj);
+    if (day === dayObj.name) {
+      dayObj.interviewers.forEach((interviewersID) => 
+        interviewersArray.push(interviewersID) 
+      );
+    }
+    return interviewersArray; 
+  });
+  return matchInterviewer(state.appointments, interviewersArray);
+    }

@@ -28,7 +28,7 @@ const CREATE = "CREATE";
       )}
      {mode === CREATE && ( 
       <Form
-        interviewers = {[]}
+        interviewers = {props.interviewers}
         onCancel = {back}
       />
       )}
