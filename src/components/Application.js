@@ -26,12 +26,11 @@ export default function Application(props) {
 
   const setDay = day => setState({ ...state, day });
   
-
   useEffect(() => {
     Promise.all([
-      axios.get('/api/days'),
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
+      Promise.resolve(axios.get('/api/days')),
+      Promise.resolve(axios.get('/api/appointments')),
+      Promise.resolve(axios.get('/api/interviewers'))
     ]).then((all) => {
       setState((prev) => ({
         ...prev,
@@ -42,19 +41,58 @@ export default function Application(props) {
     });
   }, [])
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day)
+  function bookInterview(id, interview) {
+    //console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return axios.put(` /api/appointments/${id}`, {interview : interview}).then(res => {
+      setState({
+        ...state,
+        appointments
+      })
+      return res;
+    }).catch(err => console.log("error", err))
+  }
+
+function cancelInterview(id) {
+  const appointment = {
+    ...state.appointments[id],
+    interview: null 
+  };
+  const appointments = {
+    ...state.appointments,
+    [id]: appointment
+  };
+ return axios.delete(` /api/appointments/${id}`).then((res) => {
+   setState({
+     ...state, 
+     appointments
+   })
+   return res;
+ })
+}
+  
+  const appointmentObject = getAppointmentsForDay(state, state.day)
   const interviewerObject = getInterviewersForDay(state, state.day)
 
-  const appointment = dailyAppointments.map((appt)  => {
-    const interview = getInterview(state, appt.interview)
+  const appointment = appointmentObject.map((appointmentObject)  => {
+    const interview = getInterview(state, appointmentObject.interview)
     return (
       <Appointment  
-      {...appt}
-      key={appt.id}
-      id={appt.id}
-      time={appt.time}
+      {...appointmentObject}
+      key={appointmentObject.id}
+      id={appointmentObject.id}
+      time={appointmentObject.time}
       interview={interview}
       interviewers={interviewerObject}
+      bookInterview={bookInterview}
+      cancelInterview= {cancelInterview}
       /> 
     )
   })
