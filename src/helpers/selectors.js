@@ -39,7 +39,6 @@ export function getInterviewersForDay(state, day) {
   let interviewersArray = [];
 
   state.days.map((dayObj) => {
-    console.log("dayObj", dayObj);
     if (day === dayObj.name) {
       dayObj.interviewers.forEach((interviewersID) =>
         interviewersArray.push(interviewersID)
