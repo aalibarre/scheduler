@@ -6,8 +6,6 @@ import DayList from "./DayList";
 
 import Appointment from "./Appointment";
 
-
-
 import {
   getAppointmentsForDay,
   getInterview,
@@ -17,12 +15,11 @@ import {
 import useApplicationData from "hooks/useApplicationData";
 
 export default function Application(props) {
-const {state, setDay, bookInterview, cancelInterview} = useApplicationData()
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
   const appointmentObject = getAppointmentsForDay(state, state.day);
-  console.log("what apppointment object", appointmentObject)
   const interviewerObject = getInterviewersForDay(state, state.day);
-  console.log("what is interview Object", interviewerObject)
   const appointment = appointmentObject.map((appointmentObject) => {
     const interview = getInterview(state, appointmentObject.interview);
     return (
@@ -41,7 +38,6 @@ const {state, setDay, bookInterview, cancelInterview} = useApplicationData()
   return (
     <main className="layout">
       <section className="sidebar">
-        {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
         <img
           className="sidebar--centered"
           src="images/logo.png"
