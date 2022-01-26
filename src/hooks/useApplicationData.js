@@ -78,8 +78,7 @@ const [state, setState] = useState({
           days
         });
         return res;
-      })
-      .catch((err) => console.log("error", err));
+      });
   }
 
   function cancelInterview(id) {

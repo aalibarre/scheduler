@@ -10,6 +10,7 @@ import "./styles.scss";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
+  console.log("props for interview",props)
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -26,13 +27,18 @@ export default function Appointment(props) {
   function save(name, interviewer) {
     const interview = {
       student: name,
-      interviewer,
+      interviewer
     };
+
     transition(SAVING);
+
     props
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true));
+      .catch(error =>  {
+        console.log("got the error",error)
+        transition(ERROR_SAVE,true)
+      });
   }
 
   function deleteAppointment(id) {
@@ -41,7 +47,7 @@ export default function Appointment(props) {
       props
         .cancelInterview(props.id)
         .then(() => transition(EMPTY))
-        .catch(() => transition(ERROR_DELETE, true));
+        .catch(error => transition(ERROR_DELETE, true));
     } else {
       transition(CONFIRM);
     }
@@ -85,7 +91,7 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewers={props.interviewers}
           interviewer={props.interview.interviewer.id}
-          name={props.interview.name}
+          // name={props.interview.name}
           onSave={save}
           onCancel={back}
         />

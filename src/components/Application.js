@@ -49,7 +49,7 @@ export default function Application(props) {
             days={state.days}
             day={state.day}
             value={state.days}
-            onChange={setDay}
+            setDay={setDay}
           />
         </nav>
         <img
